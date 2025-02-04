@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lista_tarefas_alura_v3/components/principal/dificulty.dart';
+import 'package:lista_tarefas_alura_v3/data/task_dao.dart';
 
 class Content extends StatefulWidget {
   final String text;
   final String namePicture;
   final String urlPicture;
   final int dificulty;
+
   const Content(this.text, this.urlPicture, this.dificulty,
       {required this.namePicture, super.key});
 
@@ -84,6 +86,45 @@ class _ContentState extends State<Content> {
                       ),
                     ),
                   ),
+                  onLongPress: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Atenção!!!'),
+                        content: const Text('Deseja excluir a tarefa?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                'No',
+                                style: TextStyle(color: Colors.white70),
+                              )),
+                          TextButton(
+                            onPressed: () {
+                              TaskDao().delete(widget.text);
+                              Navigator.of(context).pop();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Tarefa Removida!",
+                                  ),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Yes',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                          ),
+                        ],
+                        elevation: 24.0,
+                        backgroundColor: Colors.deepPurple.shade400,
+                      ),
+                      barrierDismissible: true,
+                    );
+                  },
                   onPressed: () {
                     setState(() {
                       double lineValue = lv / (5 * (widget.dificulty + 1));

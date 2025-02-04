@@ -19,6 +19,13 @@ class _PrincipalState extends State<Principal> {
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white70,
         leading: Icon(Icons.account_balance_outlined),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {});
+              },
+              icon: Icon(Icons.refresh))
+        ],
         title: Text(titleAppbar),
       ),
       body: Padding(
