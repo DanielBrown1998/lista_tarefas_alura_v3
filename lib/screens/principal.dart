@@ -95,7 +95,11 @@ class _PrincipalState extends State<Principal> {
                 context,
                 MaterialPageRoute(
                     builder: (newContext) => FormScreen(taskContext: context)),
-              );
+              ).then((value) {
+                setState(() {
+                  print("recarregando a tela inicial");
+                });
+              });
             },
             child: const Icon(Icons.add),
           ),

@@ -1,5 +1,6 @@
+import 'package:lista_tarefas_alura_v3/components/principal/task.dart';
+import 'package:lista_tarefas_alura_v3/data/task_dao.dart';
 import 'package:flutter/material.dart';
-import 'package:lista_tarefas_alura_v3/data/task_inherited.dart';
 
 class FormTask extends StatefulWidget {
   const FormTask({super.key, required this.taskContext});
@@ -142,8 +143,7 @@ class _FormTaskState extends State<FormTask> {
               final int dificulty = int.parse(dificultyController.text);
               final String image = imageController.text;
 
-              TaskInherited.of(widget.taskContext)!
-                  .newTask(name, image, dificulty);
+              TaskDao().save(Task(name, image, dificulty));
 
               Navigator.pop(context);
 
